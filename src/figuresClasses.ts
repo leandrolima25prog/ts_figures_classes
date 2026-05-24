@@ -10,27 +10,19 @@ export interface Figure {
 export class Triangle implements Figure {
   shape: ShapeType = 'triangle';
 
-  color: ColorType;
-
-  a: number;
-
-  b: number;
-
-  c: number;
-
-  constructor(color: ColorType, a: number, b: number, c: number) {
+  constructor(
+    public color: ColorType,
+    public a: number,
+    public b: number,
+    public c: number,
+  ) {
     if (a <= 0 || b <= 0 || c <= 0) {
       throw new Error('Sides must be greater than 0');
     }
 
     if (a >= b + c || b >= a + c || c >= a + b) {
-      throw new Error("Sides can't form a triangle");
+      throw new Error(`sides ${a}, ${b} and ${c} can't form a triangle`);
     }
-
-    this.color = color;
-    this.a = a;
-    this.b = b;
-    this.c = c;
   }
 
   getArea(): number {
@@ -46,17 +38,13 @@ export class Triangle implements Figure {
 export class Circle implements Figure {
   shape: ShapeType = 'circle';
 
-  color: ColorType;
-
-  radius: number;
-
-  constructor(color: ColorType, radius: number) {
+  constructor(
+    public color: ColorType,
+    public radius: number,
+  ) {
     if (radius <= 0) {
       throw new Error('Radius must be greater than 0');
     }
-
-    this.color = color;
-    this.radius = radius;
   }
 
   getArea(): number {
@@ -69,20 +57,14 @@ export class Circle implements Figure {
 export class Rectangle implements Figure {
   shape: ShapeType = 'rectangle';
 
-  color: ColorType;
-
-  width: number;
-
-  height: number;
-
-  constructor(color: ColorType, width: number, height: number) {
+  constructor(
+    public color: ColorType,
+    public width: number,
+    public height: number,
+  ) {
     if (width <= 0 || height <= 0) {
       throw new Error('Width and height must be greater than 0');
     }
-
-    this.color = color;
-    this.width = width;
-    this.height = height;
   }
 
   getArea(): number {
@@ -93,5 +75,7 @@ export class Rectangle implements Figure {
 }
 
 export function getInfo(figure: Figure): string {
-  return `A ${figure.color} ${figure.shape} - ${figure.getArea()}`;
+  const info: string = `${figure.color} ${figure.shape}`;
+
+  return `A ${info} - ${figure.getArea()}`;
 }
